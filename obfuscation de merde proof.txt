@@ -1,0 +1,5 @@
+https://www.tiktok.com/@bluemagicofficiel/video/7584112288181816598?lang=en
+
+montrant un exec(code_obj, globals(), globals()) supposant que bon on fait simplement un dump du exec dans un file on get le pyc qu'on peux decompiler et get le soruce code apres
+
+ce type d'obf est ez detect par les AV car code "lourdement obfusqué" meme si c'est de la grosse d
