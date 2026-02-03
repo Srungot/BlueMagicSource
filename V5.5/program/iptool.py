@@ -48,12 +48,12 @@ def get_ip_info(ip):
         else:
             print(f'{Fore.GREEN}[+] Status: valid{Style.RESET_ALL}')
         data = response.json()
-        print(f'{Fore.GREEN}[+] Country: {data.get('country', 'None')}{Style.RESET_ALL}')
-        print(f'{Fore.GREEN}[+] Region: {data.get('region', 'None')}{Style.RESET_ALL}')
-        print(f'{Fore.GREEN}[+] City: {data.get('city', 'None')}{Style.RESET_ALL}')
-        print(f'{Fore.GREEN}[+] Coordinates: {data.get('loc', 'None')}{Style.RESET_ALL}')
-        print(f'{Fore.GREEN}[+] Timezone: {data.get('timezone', 'None')}{Style.RESET_ALL}')
-        print(f'{Fore.GREEN}[+] ISP: {data.get('org', 'None')}{Style.RESET_ALL}')
+        print(f'{Fore.GREEN}[+] Country: {data.get("country", "None")}{Style.RESET_ALL}')
+        print(f'{Fore.GREEN}[+] Region: {data.get("region", "None")}{Style.RESET_ALL}')
+        print(f'{Fore.GREEN}[+] City: {data.get("city", "None")}{Style.RESET_ALL}')
+        print(f'{Fore.GREEN}[+] Coordinates: {data.get("loc", "None")}{Style.RESET_ALL}')
+        print(f'{Fore.GREEN}[+] Timezone: {data.get("timezone", "None")}{Style.RESET_ALL}')
+        print(f'{Fore.GREEN}[+] ISP: {data.get("org", "None")}{Style.RESET_ALL}')
     except requests.RequestException as e:
         print(f'{Fore.GREEN}[-] Error fetching IP info: {e}{Style.RESET_ALL}')
     input(f'{Fore.GREEN}[ENTER] to exit...{Style.RESET_ALL}')
