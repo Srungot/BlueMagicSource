@@ -260,7 +260,7 @@ class MITMInterface(ctk.CTk):
             self.config['iface'] = self.iface_var.get()
             self.local_ip = get_if_addr(self.config['iface'])
             self.local_mac = get_if_hwaddr(self.config['iface'])
-            self.log(f'[AUTO] Interface used: {self.config['iface']}')
+            self.log(f'[AUTO] Interface used: {self.config["iface"]}')
             self.log(f'[AUTO] Local IP: {self.local_ip}')
             self.log(f'[AUTO] Local MAC: {self.local_mac}')
             gw_ip = self.detect_gateway()
@@ -311,7 +311,7 @@ class MITMInterface(ctk.CTk):
                 enriched_sorted = sorted(enriched, key=lambda x: x.get('ip') or '')
                 if enriched_sorted:
                     self.log('[AUTO] TARGET IPs and MACs:')
-                    self.log(f'{'IP':16} {'MAC':18} {'Hostname':30} {'NetBIOS/mDNS':20} {'Vendor'}')
+                    self.log(f'{"IP":16} {"MAC":18} {"Hostname":30} {"NetBIOS/mDNS":20} {"Vendor"}')
                     for e in enriched_sorted:
                         ip = e.get('ip') or '-'
                         mac = e.get('mac') or '-'
