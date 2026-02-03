@@ -201,15 +201,42 @@ def display_menu():
     print_gradient_text('═════════════════════════════════════════════════════════════════════')
 
 def main():
-    """Main function for Phantom Veil Spoofer."""  # inserted
+    """Main function for Phantom Veil Spoofer."""
     signal.signal(signal.SIGINT, signal_handler)
     atexit.register(lambda: restore_hwids() if spoofed else None)
-    if len(sys.argv) > 1 and sys.argv[1].lower() == 'live' and (not is_admin()):
-        print_gradient_text('[-] Admin privileges required for live spoofing. Run as administrator.')
-        print_gradient_text('[-] Use \'run_as_admin.bat\' in \'C:\\Users\\BX1\\Desktop\\nouveau projet\' to launch with admin rights.')
-        input(f'{Fore.RED}Press Enter to return to menu...{Style.RESET_ALL}')
-        main()
-    return None
+    
+    while True:
+        display_menu()
+        choice = input(f'{Fore.RED}[>] Select an option: {Style.RESET_ALL}').strip()
+        
+        if choice == '1':
+            set_seed()
+            backup_hwids()
+            spoof_hwids(simulate=True)
+            print_gradient_text('[+] Simulation mode: HWIDs would be spoofed to:')
+            print_gradient_text(f'    - CPU: {generate_cpu_id()}')
+            print_gradient_text(f'    - GPU: {generate_gpu_id()}')
+            print_gradient_text(f'    - Disk: {generate_disk_serial()}')
+            input(f'{Fore.RED}Press Enter to return to menu...{Style.RESET_ALL}')
+        elif choice == '2':
+            if not is_admin():
+                print_gradient_text('[-] Admin privileges required for live spoofing. Run as administrator.')
+                input(f'{Fore.RED}Press Enter to return to menu...{Style.RESET_ALL}')
+            else:
+                set_seed()
+                backup_hwids()
+                spoof_hwids(simulate=False)
+                input(f'{Fore.RED}Press Enter to return to menu...{Style.RESET_ALL}')
+        elif choice == '3':
+            clean_game_data()
+            input(f'{Fore.RED}Press Enter to return to menu...{Style.RESET_ALL}')
+        elif choice == '4':
+            print_gradient_text('[*] Exiting Phantom Veil Spoofer...')
+            restore_hwids()
+            break
+        else:
+            print_gradient_text('[-] Invalid option. Please select 1-4.')
+            time.sleep(1)
 if __name__ == '__main__':
     def clear_screen():
         if os.name == 'posix':
