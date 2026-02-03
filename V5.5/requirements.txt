@@ -37,3 +37,4 @@ geocoder
 pynput
 pyaudio
 pycryptodomex
+argon2-cffi
