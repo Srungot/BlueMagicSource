@@ -158,7 +158,7 @@ def get_recommendations(vuln_type):
     return recommendations.get(vuln_type, ['Validate inputs', 'Secure configs'])
 def generate_pdf_report(report):
     """[*] Generating PDF report"""
-    pdf_file = f'output/report_{report['id']}.pdf'
+    pdf_file = f"output/report_{report['id']}.pdf"
     try:
         doc = SimpleDocTemplate(pdf_file, pagesize=letter)
         styles = getSampleStyleSheet()
@@ -170,11 +170,11 @@ def generate_pdf_report(report):
         clean_reproduction = report['reproduction_steps'].replace('<', '&lt;').replace('>', '&gt;')
         clean_impact = report['impact'].replace('<', '&lt;').replace('>', '&gt;')
         clean_recommendations = ', '.join(report['recommendations']).replace('<', '&lt;').replace('>', '&gt;')
-        story = [Paragraph(f'<b>{clean_title}</b>', title_style), Paragraph(f'ID: {report['id']}', normal_style), Paragraph(f'Severity: {report['severity']['cvss']} ({report['severity']['justification']})', normal_style), Paragraph(f'Summary: {clean_summary}', normal_style), Paragraph(f'Details: {clean_description}', normal_style), Paragraph(f'Fixes: {clean_recommendations}', normal_style), Paragraph(f'Meta: {json.dumps(report['meta'], indent=2)}', normal_style)]
+        story = [Paragraph(f'<b>{clean_title}</b>', title_style), Paragraph(f"ID: {report['id']}", normal_style), Paragraph(f"Severity: {report['severity']['cvss']} ({report['severity']['justification']})", normal_style), Paragraph(f'Summary: {clean_summary}', normal_style), Paragraph(f'Details: {clean_description}', normal_style), Paragraph(f'Fixes: {clean_recommendations}', normal_style), Paragraph(f"Meta: {json.dumps(report['meta'], indent=2)}", normal_style)]
         doc.build(story)
         console.print(f'[+] PDF report saved: {pdf_file}', style='bold green')
     except Exception as e:
-        audit_log('pdf_report', f'Failed to generate PDF for {report['id']}: {str(e)}')
+        audit_log('pdf_report', f"Failed to generate PDF for {report['id']}: {str(e)}")
 def extract_params(url):
     """[*] Extracting URL parameters"""
     try:
