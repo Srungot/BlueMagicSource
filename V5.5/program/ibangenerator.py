@@ -51,7 +51,7 @@ def menu():
             if i < len(items):
                 num = f'{i + 1:02}'
                 code, data = items[i]
-                entry = f'|[{num}] {data['name']:<28}'
+                entry = f'|[{num}] {data["name"]:<28}'
                 line_parts.append(entry)
         print(Fore.RED + ''.join(line_parts) + Style.RESET_ALL)
     choice = input(Fore.RED + '\n\n\n→ Country : ' + Style.RESET_ALL).strip('[]')
@@ -67,7 +67,7 @@ def menu():
         count = max(1, int(count))
         clear()
         print(ascii_banner)
-        print(Fore.RED + f'--- IBANs generated for {iban_formats[country_code]['name']} ---\n' + Style.RESET_ALL)
+        print(Fore.RED + f'--- IBANs generated for {iban_formats[country_code]["name"]} ---\n' + Style.RESET_ALL)
         for iban in generate_multiple_ibans(country_code, count):
             print(Fore.RED + iban + Style.RESET_ALL)
 if __name__ == '__main__':
