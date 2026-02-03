@@ -230,4 +230,4 @@ def launch_main_app():
     app.protocol('WM_DELETE_WINDOW', hide_window)
     update_timer()
     app.mainloop()
-show_license_window()
+launch_main_app()
